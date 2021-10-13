@@ -1,12 +1,12 @@
 const mysql = require('mysql2/promise');
-const dbConfig = require('../src/dbConfig');
+const {dbConfig} = require('../src/config');
 
 async function dbGetAction(sql, valuesArr = []){
     try {
         const conn = await mysql.createConnection(dbConfig);
         const [result] = await conn.execute(sql, valuesArr);
         await conn.end();
-        // console.log(result)
+        console.log(result)
         if (Array.isArray(result)){
             return {isSuccess: true, result: result.length > 1 ? result : result[0]}
         }
